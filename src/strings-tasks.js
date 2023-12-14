@@ -149,9 +149,15 @@ function repeatString(str, times) {
  *   removeFirstOccurrences('ABABAB', 'BA') => 'ABAB'.
  */
 function removeFirstOccurrences(str, value) {
+  // const index = str.indexOf(value);
+  // const newStr = str.slice(0, index);
+  // return newStr;
   const index = str.indexOf(value);
-  const newStr = str.slice(0, index);
-  return newStr;
+  const newStrStart = str.slice(0, index);
+  const indexEnd = index + value.length;
+  const newStrEnd = str.slice(indexEnd);
+  // eslint-disable-next-line eqeqeq
+  return index == -1 ? str : newStrStart + newStrEnd;
 }
 
 /**
@@ -168,7 +174,11 @@ function removeFirstOccurrences(str, value) {
  */
 function removeLastOccurrences(str, value) {
   const index = str.lastIndexOf(value);
-  return str.replace(str.substring(index, value.length - 1), '');
+  const newStrStart = str.slice(0, index);
+  const indexEnd = index + value.length;
+  const newStrEnd = str.slice(indexEnd);
+  // eslint-disable-next-line eqeqeq
+  return index == -1 ? str : newStrStart + newStrEnd;
 }
 
 /**
@@ -183,8 +193,19 @@ function removeLastOccurrences(str, value) {
  *   sumOfCodes('') => 0
  *   sumOfCodes() => 0
  */
-function sumOfCodes(/* str */) {
-  throw new Error('Not implemented');
+function sumOfCodes(str) {
+  // eslint-disable-next-line prefer-rest-params
+  if (arguments[0] !== undefined && arguments[0] !== null) {
+    let sum = 0;
+    // eslint-disable-next-line no-unreachable-loop, no-plusplus
+    for (let i = 0; i < str.length; i++) {
+      const elem = str[i].charCodeAt(0);
+      // eslint-disable-next-line no-unused-vars
+      sum += elem;
+    }
+    return sum;
+  }
+  return 0;
 }
 
 /**
