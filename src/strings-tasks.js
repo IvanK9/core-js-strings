@@ -149,15 +149,11 @@ function repeatString(str, times) {
  *   removeFirstOccurrences('ABABAB', 'BA') => 'ABAB'.
  */
 function removeFirstOccurrences(str, value) {
-  // const index = str.indexOf(value);
-  // const newStr = str.slice(0, index);
-  // return newStr;
   const index = str.indexOf(value);
   const newStrStart = str.slice(0, index);
   const indexEnd = index + value.length;
   const newStrEnd = str.slice(indexEnd);
-  // eslint-disable-next-line eqeqeq
-  return index == -1 ? str : newStrStart + newStrEnd;
+  return index === -1 ? str : newStrStart + newStrEnd;
 }
 
 /**
@@ -177,8 +173,10 @@ function removeLastOccurrences(str, value) {
   const newStrStart = str.slice(0, index);
   const indexEnd = index + value.length;
   const newStrEnd = str.slice(indexEnd);
-  // eslint-disable-next-line eqeqeq
-  return index == -1 ? str : newStrStart + newStrEnd;
+  if (index === -1) {
+    return str;
+  }
+  return newStrStart + newStrEnd;
 }
 
 /**
@@ -194,13 +192,10 @@ function removeLastOccurrences(str, value) {
  *   sumOfCodes() => 0
  */
 function sumOfCodes(str) {
-  // eslint-disable-next-line prefer-rest-params
-  if (arguments[0] !== undefined && arguments[0] !== null) {
+  if (str.length) {
     let sum = 0;
-    // eslint-disable-next-line no-unreachable-loop, no-plusplus
-    for (let i = 0; i < str.length; i++) {
+    for (let i = 0; i < str.length; i + 1) {
       const elem = str[i].charCodeAt(0);
-      // eslint-disable-next-line no-unused-vars
       sum += elem;
     }
     return sum;
@@ -269,9 +264,7 @@ function formatTime(minutes, seconds) {
  */
 function reverseString(str) {
   let newString = '';
-  // eslint-disable-next-line no-const-assign, no-plusplus
-  for (let i = str.length - 1; i >= 0; i--) {
-    // eslint-disable-next-line no-const-assign
+  for (let i = str.length - 1; i >= 0; i - 1) {
     newString += str[i];
   }
   return newString;
@@ -325,8 +318,7 @@ function containsSubstring(str, substring) {
 function countVowels(str) {
   let count = 0;
   const vowels = 'aeiouyAEIOUY';
-  // eslint-disable-next-line no-plusplus
-  for (let i = 0; i <= str.length - 1; i++) {
+  for (let i = 0; i <= str.length - 1; i + 1) {
     if (vowels.includes(str[i])) {
       count += 1;
     }
@@ -339,7 +331,7 @@ function countVowels(str) {
  * https://en.wikipedia.org/wiki/Palindrome
  *
  * @param {string} str - The input string.
- * @return {bool} - True if the string is a palindrome, false otherwise.
+ * @return {boolean} - True if the string is a palindrome, false otherwise.
  *
  * @example:
  *   isPalindrome('madam') => true
@@ -357,8 +349,7 @@ function isPalindrome(str) {
   if (reverceStr.includes(',')) {
     reverceStr = str.toLowerCase().split(' ,').reverse().join(' ');
   }
-  // eslint-disable-next-line eqeqeq
-  return str.replace(/[^a-zA-Z0-9]+/gi, '').toLowerCase() == reverceStr;
+  return str.replace(/[^a-zA-Z0-9]+/gi, '').toLowerCase() === reverceStr;
 }
 
 /**
@@ -374,8 +365,7 @@ function isPalindrome(str) {
  *   findLongestWord('No words here') => 'words'
  */
 function findLongestWord(sentence) {
-  // eslint-disable-next-line no-undef, func-names
-  const longestWord = sentence.split(' ').sort(function (a, b) {
+  const longestWord = sentence.split(' ').sort((a, b) => {
     return b.length - a.length;
   });
   return longestWord[0];
@@ -469,7 +459,7 @@ function unbracketTag(str) {
  * Extracts e-mails from single string with e-mails list delimited by semicolons
  *
  * @param {string} str - The input string.
- * @return {array} - The list of e-mails extracted from the string.
+ * @return {string[]} - The list of e-mails extracted from the string.
  *
  * @example
  *   'angus.young@gmail.com;brian.johnson@hotmail.com;bon.scott@yahoo.com'
@@ -504,17 +494,15 @@ function encodeToRot13(str) {
   const alphabet = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz';
   const alphabetR13 = 'NOPQRSTUVWXYZABCDEFGHIJKLMnopqrstuvwxyzabcdefghijklm';
   let newStr = '';
-  // eslint-disable-next-line no-unused-vars
-  const arrAB = alphabet.split('');
-  // eslint-disable-next-line no-unused-vars
-  const arrR13 = alphabetR13.split('');
-  // eslint-disable-next-line no-unused-vars, array-callback-return
-  const arr = str.split('').map((el) => {
+  // const arrAB = alphabet.split('');
+  // const arrR13 = alphabetR13.split('');
+  str.split('').forEach((el) => {
     const index = alphabet.indexOf(el);
-    // eslint-disable-next-line no-unused-expressions
-    alphabetR13[index] === undefined
-      ? (newStr += el)
-      : (newStr += alphabetR13[index]);
+    if (alphabetR13[index] === undefined) {
+      newStr += el;
+    } else {
+      newStr += alphabetR13[index];
+    }
   });
   return newStr;
 }
