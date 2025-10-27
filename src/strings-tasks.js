@@ -192,9 +192,9 @@ function removeLastOccurrences(str, value) {
  *   sumOfCodes() => 0
  */
 function sumOfCodes(str) {
-  if (str.length) {
+  if (str !== undefined && str !== null) {
     let sum = 0;
-    for (let i = 0; i < str.length; i + 1) {
+    for (let i = 0; i < str.length; i += 1) {
       const elem = str[i].charCodeAt(0);
       sum += elem;
     }
@@ -264,7 +264,7 @@ function formatTime(minutes, seconds) {
  */
 function reverseString(str) {
   let newString = '';
-  for (let i = str.length - 1; i >= 0; i - 1) {
+  for (let i = str.length - 1; i >= 0; i -= 1) {
     newString += str[i];
   }
   return newString;
@@ -318,7 +318,7 @@ function containsSubstring(str, substring) {
 function countVowels(str) {
   let count = 0;
   const vowels = 'aeiouyAEIOUY';
-  for (let i = 0; i <= str.length - 1; i + 1) {
+  for (let i = 0; i <= str.length - 1; i += 1) {
     if (vowels.includes(str[i])) {
       count += 1;
     }
